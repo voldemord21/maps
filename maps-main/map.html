@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maps</title>
+   
+</head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
+<body>
+    <div id="top">
+    <div id="map">
+
+    </div>
+   
+    <div id="cost">
+        <div id="double">
+          <div id="room">
+            <div id="firstroom">
+                <img src="room.jpeg" alt="Room Image">
+                <p id="first">7000/mon</p>
+                <p>2 Beds | Free Wifi | Parking</p>
+                <p>Ring Rd, Gongabu</p>
+            </div>
+            <div id="room1">
+                <img src="room.jpeg" alt="Room Image">
+                <p id="first">6000/mon</p>
+                <p>1 Bed | 1 Ba | Parking</p>
+                <p>Samakushi,Ring Rd</p>
+            </div>
+        </div>
+        </div>
+
+            <div id="sub">
+            <h2 id="he">Subscribe for more info</h2>
+            <p id="ad" >Stay updated with our latest news and offers.</p>
+            <button id="price">Subscribe</button>
+             </div>
+    
+      
+           <div id="side">
+            <img src="room.jpeg" height="300px" width="500px">
+            <h2>Common Room for Rental</h2>
+            <h4>Room for Rent in Gongabu,Kathmandu</h4>
+            <h2>Description</h2>
+            <p>2 rooms avaiable for person with proper water source, free wifi and Praking</p>
+            
+            <div id="para">
+                <p><span><input type="checkbox"></span>ID Verified</p>
+            <p><span><input type="checkbox"></span>Address Verified</p>
+            </div>
+            <button id="bu">Message for more Details</button>
+          </div>
+        
+    
+            
+        </div>
+        </div>
+      
+</div>
+    
+</body>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="room.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="room2.js"></script>
+<script src="room1.js"></script>
+<script>
+ 
+    //map initailazation
+var map = L.map('map').setView([ 27.717245, 85.323960], 13);
+
+//osm layer
+var osm= L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+osm.addTo(map);
+
+
+//watercolor
+var Watercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}', {
+	minZoom: 1,
+	maxZoom: 16,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'jpg'
+});
+Watercolor.addTo(map);
+
+
+//google street
+googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+googleStreets.addTo(map);
+
+
+//change marker img
+var myIcon = L.icon({
+    iconUrl: 'red markers.png',
+    iconSize: [30, 30],
+   
+});
+
+var singlemarker=L.marker([27.7352928,85.3127612],{icon:myIcon});
+var popup=singlemarker.bindPopup('This is ASMT').openPopup();
+popup.addTo(map);
+
+var singlemarker=L.marker([27.737620995654254, 85.32675587934857],{icon:myIcon});
+var popup=singlemarker.bindPopup('This is Hirt Academy').openPopup();
+popup.addTo(map);
+
+var singlemarker=L.marker([27.714938927029827, 85.30895425051236],{icon:myIcon});
+var popup=singlemarker.bindPopup('This is NCCS').openPopup();
+popup.addTo(map);
+
+var singlemarker=L.marker([27.739688504645397, 85.32539960818384],{icon:myIcon});
+var popup=singlemarker.bindPopup('This is Southwestern').openPopup();
+popup.addTo(map);
+
+
+let isWindowFirstTime = 1;
+addEventListener("load", (event) => {
+  isWindowFirstTime += 1;
+  console.log(isWindowFirstTime);
+});
+
+  let subscribeButton = document.getElementById('price');
+let isSubscribed = false;
+subscribeButton.addEventListener('click', function(){
+  
+  isSubscribed = true;
+    if (isSubscribed){
+      console.log(isSubscribed);
+       
+        var Rent=L.geoJSON(second);
+    Rent.addTo(map);
+
+    const remove=document.getElementById('room');
+    Rent.on('click',function(){
+    var page=document.getElementById('side');
+    page.style.display="block";
+    remove.style.display="none";
+
+});
+
+    // location.reload();
+    }else{
+      isSubscribed = false
+        var Rent=L.geoJSON(roomJson);
+        Rent.addTo(map);
+
+    }
+    
+    
+});
+
+console.log(isWindowFirstTime);
+var Rent=L.geoJSON(roomJson);
+Rent.addTo(map);
+
+const remove=document.getElementById('room');
+Rent.on('click',function(){
+    var page=document.getElementById('side');
+    page.style.display="block";
+    remove.style.display="none";
+
+});
+
+var boundary=L.geoJSON(distance);
+boundary.addTo(map);
+
+
+
+//layer controller
+
+var baseMaps = {
+    "OSM": osm,
+    "Water color map": Watercolor,
+     "Google":googleStreets
+};
+
+var overlayMaps = {
+    "college": singlemarker,
+    "Rent":Rent,
+    "1km":boundary
+};
+var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+L.Control.geocoder().addTo(map);
+
+
+
+</script>
+</html>
